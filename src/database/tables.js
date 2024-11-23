@@ -15,6 +15,27 @@ export const createTable = async () => {
                     table.timestamps(true, true)
             })
         }
+        if (!(await database.schema.hasTable('teacher'))) {
+            await database.schema.createTable('teacher', (table) => {
+                table.increments('id').primary(),
+                table
+                    .integer('user_id')
+                    .unsigned()
+                    .references('id')
+                    .inTable('users')
+                    .notNullable()
+            })
+        }
+        if (!(await database.schema.hasTable('student'))) {
+            await database.schema.createTable('student', (table) => {
+                table.increments('id').primary(),
+                table
+                    .integer('user_id')
+                    .unsigned()
+                    .references('id')
+                    .inTable('users')
+                    .notNullable()
+                table.boolean('permisson').notNullable()
 
         //courses table
         if (!(await database.schema.hasTable('courses'))) {
