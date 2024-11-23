@@ -1,6 +1,11 @@
 import express from 'express'
-import { authRouter, studentRouter, teacherRouter } from './router/index.js'
-import { assignmentRouter, authRouter, courseRouter } from './router/index.js'
+import {
+    authRouter,
+    studentRouter,
+    teacherRouter,
+    assignmentRouter,
+    courseRouter,
+} from './router/index.js'
 import { createTable } from './database/tables.js'
 
 const app = express()
