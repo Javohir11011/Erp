@@ -36,7 +36,7 @@ export const createTable = async () => {
                     .inTable('users')
                     .notNullable()
                 table.boolean('permisson').notNullable()
-
+            })
         //courses table
         if (!(await database.schema.hasTable('courses'))) {
             await database.schema.createTable('courses', (table) => {
@@ -90,6 +90,7 @@ export const createTable = async () => {
                     table.boolean('active')
             })
         }
+    }
     } catch (error) {
         logger.error(error.message)
     }

@@ -22,42 +22,38 @@ export const getByEmailService = async (email) => {
 }
 export const registerService = async (user) => {
     try {
-        const result = await getByEmailService(user.email)
-        if (result) {
-            throw new Error(`Email already created...`)
+        const existingUser = await getByEmailService(user.email);
+        if (existingUser) {
+            throw new Error('Email already created...');
         }
-        const data = await connectDb('users')
-            .insert({
-                name: user.name,
-                email: user.email,
-                password: user.password,
-        const otp = await generateOtp()
 
-        await sendEmail(
-            user.email,
-            'OTP',
-            `<h1>Sizning otpingiz marhamt ${otp} jigar buni hech kimga bermang...</h1>`,
-        )
-        const hashedPassword = await hashPassword(user.password)
-        const [data] = await connectDb('users')
+        const hashedPassword = await hashPassword(user.password);
+
+        const newUser = await connectDb('users')
             .insert({
                 name: user.name,
                 email: user.email,
                 password: hashedPassword,
-                role: user.role || 'student',
+                role: user.role || 'student', 
             })
-            .returning('*')
-        // console.log([data]);
-        return data
+            .returning('*'); 
+
+        const otp = await generateOtp();
+        await sendEmail(
+            user.email,
+            'OTP',
+            `<h1>Sizning OTP kodingiz: <strong>${otp}</strong>. Buni hech kimga bermang!</h1>`,
+        );
+
+        return newUser;
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error.message);
     }
-}
+};
 
 export const loginService = async (user) => {
     try {
         const currentUser = await getByEmailService(user.email)
-        // console.log(result);
         if (!currentUser) {
             throw new Error('error')
         }
@@ -103,7 +99,8 @@ export const updateService = async (id, user) => {
             .select('*')
             .from('users')
             .where('id', id)
-            .update(user).returning('*')
+            .update(user)
+            .returning('*')
         return currentUser[0]
     } catch (error) {
         throw new Error(error)
@@ -116,7 +113,8 @@ export const deleteUserService = async (id) => {
             .select('*')
             .from('users')
             .where('id', id)
-            .del().returning('*')
+            .del()
+            .returning('*')
         return currentUser[0]
     } catch (error) {
         throw new Error(error)
