@@ -6,18 +6,20 @@ import {
 
 export const register = async (req, res, next) => {
     try {
-        console.log(req.body)
         const data = await registerService(req.body)
-        res.send(data)
+        if(!data){
+            return res.status(404).send("Servicdan malumot kelmayapti...")
+        }
+        return res.status(201).send(data)
     } catch (error) {
         next(error)
     }
-    //   console.log("salom");
 }
 
 export const login = async (req, res, next) => {
     try {
-        const data = loginService(req.body)
+        const data = await loginService(req.body)
+        
         res.send(data)
     } catch (error) {
         next(error)
