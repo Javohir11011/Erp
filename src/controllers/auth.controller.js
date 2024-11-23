@@ -6,7 +6,9 @@ import {
 
 export const register = async (req, res, next) => {
     try {
-        const data = registerService()
+        console.log(req.body);
+        const data = await registerService(req.body)
+        res.send(data)
     } catch (error) {
         next(error)
     }
@@ -15,7 +17,8 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
     try {
-        const data = loginService()
+        const data = loginService(req.body)
+        res.send(data)
     } catch (error) {
         next(error)
     }
