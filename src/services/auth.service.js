@@ -1,5 +1,12 @@
+import { Error } from 'mongoose'
 import connectDb from '../database/db.js'
-import { generateOtp, hashPassword, sendEmail } from '../utils/index.js'
+import {
+    comparePassword,
+    generateOtp,
+    generateToken,
+    hashPassword,
+    sendEmail,
+} from '../utils/index.js'
 
 export const getByEmailService = async (email) => {
     try {
@@ -42,21 +49,70 @@ export const registerService = async (user) => {
     }
 }
 
-export const loginService = async (data) => {
+export const loginService = async (user) => {
     try {
-        const result = await getByEmailService(data.email)
+        const currentUser = await getByEmailService(user.email)
         // console.log(result);
-        if (!data) {
-            throw new Error(error)
+        if (!currentUser) {
+            throw new Error('error')
         }
-        return result
+        const pass = await comparePassword(user.password, currentUser.password)
+        if (!pass) {
+            throw new Error('email or password invalid')
+        }
+        const accessToken = await generateToken('access', {
+            sub: currentUser.id,
+            email: currentUser.email,
+            role: currentUser.role,
+        })
+        const refreshToken = await generateToken('refresh', {
+            sub: currentUser.id,
+            email: currentUser.email,
+            role: currentUser.role,
+        })
+
+        return {
+            accessToken,
+            refreshToken,
+        }
     } catch (error) {
         throw new Error(error)
     }
 }
 
-export const profileService = async () => {
+export const getByUserServcie = async (id) => {
     try {
+        const currentUser = await connectDb
+            .select('*')
+            .from('users')
+            .where('id', id)
+        return currentUser[0]
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+export const updateService = async (id, user) => {
+    try {
+        const currentUser = await connectDb
+            .select('*')
+            .from('users')
+            .where('id', id)
+            .update(user).returning('*')
+        return currentUser[0]
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+export const deleteUserService = async (id) => {
+    try {
+        const currentUser = await connectDb
+            .select('*')
+            .from('users')
+            .where('id', id)
+            .del().returning('*')
+        return currentUser[0]
     } catch (error) {
         throw new Error(error)
     }
