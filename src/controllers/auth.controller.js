@@ -6,7 +6,7 @@ import {
 
 export const register = async (req, res, next) => {
     try {
-        console.log(req.body);
+        console.log(req.body)
         const data = await registerService(req.body)
         res.send(data)
     } catch (error) {

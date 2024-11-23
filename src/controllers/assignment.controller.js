@@ -1,15 +1,15 @@
 import {
-    createCourseService,
-    deleteCourseService,
-    getAllCoursesService,
-    getCourseByIdService,
-    updateCourseService,
+    createAssignmentService,
+    deleteAssignmentService,
+    getAllAssignmentsService,
+    getAssignmentByIdService,
+    updateAssignmentService,
 } from '../services/index.js'
 
-export const createCourse = async (req, res, next) => {
+export const createAssignment = async (req, res, next) => {
     try {
         const courseData = req.body
-        const result = await createCourseService(courseData)
+        const result = await createAssignmentService(courseData)
         const { success, error, course } = result
         if (success) {
             return res.status(201).send({
@@ -26,9 +26,9 @@ export const createCourse = async (req, res, next) => {
     }
 }
 
-export const getAllCourses = async (req, res, next) => {
+export const getAllAssignments = async (req, res, next) => {
     try {
-        const result = await getAllCoursesService()
+        const result = await getAllAssignmentsService()
         const { success, error, courses } = result
         if (success) {
             res.status(200).send({
@@ -45,10 +45,10 @@ export const getAllCourses = async (req, res, next) => {
     }
 }
 
-export const getCourseById = async (req, res, next) => {
+export const getAssignmentById = async (req, res, next) => {
     try {
         const courseId = req.params.id
-        const result = await getCourseByIdService(courseId)
+        const result = await getAssignmentByIdService(courseId)
         const { success, error, course } = result
         if (success) {
             return res.status(200).send({
@@ -65,11 +65,11 @@ export const getCourseById = async (req, res, next) => {
     }
 }
 
-export const updateCourse = (ById = async (req, res, next) => {
+export const updateAssignment = (ById = async (req, res, next) => {
     try {
         const courseId = req.params.id
         const newData = req.body
-        const result = await updateCourseService(courseId, newData)
+        const result = await updateAssignmentService(courseId, newData)
         const { success, error, course } = result
         if (success) {
             return res.status(200).send({
@@ -87,10 +87,10 @@ export const updateCourse = (ById = async (req, res, next) => {
     }
 })
 
-export const deleteCourse = async (req, res, next) => {
+export const deleteAssignment = async (req, res, next) => {
     try {
         const courseId = req.params.id
-        const result = await deleteCourseService(courseId)
+        const result = await deleteAssignmentService(courseId)
         const { success, error } = result
         if (success) {
             return res.status(200).send({

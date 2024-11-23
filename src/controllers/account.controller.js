@@ -1,20 +1,20 @@
 import {
-    createCourseService,
-    deleteCourseService,
-    getAllCoursesService,
-    getCourseByIdService,
-    updateCourseService,
+    createAccountService,
+    deleteAccountService,
+    getAllAccountsService,
+    getAccountByIdService,
+    updateAccountService,
 } from '../services/index.js'
 
-export const createCourse = async (req, res, next) => {
+export const createAccount = async (req, res, next) => {
     try {
-        const courseData = req.body
-        const result = await createCourseService(courseData)
-        const { success, error, course } = result
+        const accountData = req.body
+        const result = await createAccountService(accountData)
+        const { success, error, account } = result
         if (success) {
             return res.status(201).send({
                 message: 'Created',
-                course,
+                account,
             })
         }
         res.status(400).send({
@@ -26,14 +26,14 @@ export const createCourse = async (req, res, next) => {
     }
 }
 
-export const getAllCourses = async (req, res, next) => {
+export const getAllAccounts = async (req, res, next) => {
     try {
-        const result = await getAllCoursesService()
-        const { success, error, courses } = result
+        const result = await getAllAccountsService()
+        const { success, error, accounts } = result
         if (success) {
             res.status(200).send({
                 message: 'Success',
-                courses,
+                accounts,
             })
         }
         return res.status(400).send({
@@ -45,15 +45,15 @@ export const getAllCourses = async (req, res, next) => {
     }
 }
 
-export const getCourseById = async (req, res, next) => {
+export const getAccountById = async (req, res, next) => {
     try {
-        const courseId = req.params.id
-        const result = await getCourseByIdService(courseId)
-        const { success, error, course } = result
+        const accountId = req.params.id
+        const result = await getAccountByIdService(accountId)
+        const { success, error, account } = result
         if (success) {
             return res.status(200).send({
                 message: 'Success',
-                course,
+                account,
             })
         }
         return res.status(400).send({
@@ -65,16 +65,16 @@ export const getCourseById = async (req, res, next) => {
     }
 }
 
-export const updateCourse = (ById = async (req, res, next) => {
+export const updateAccount = (ById = async (req, res, next) => {
     try {
-        const courseId = req.params.id
+        const accountId = req.params.id
         const newData = req.body
-        const result = await updateCourseService(courseId, newData)
-        const { success, error, course } = result
+        const result = await updateAccountService(accountId, newData)
+        const { success, error, account } = result
         if (success) {
             return res.status(200).send({
                 message: 'Updated',
-                course,
+                account,
             })
         }
         return res.status(400).send({
@@ -87,10 +87,10 @@ export const updateCourse = (ById = async (req, res, next) => {
     }
 })
 
-export const deleteCourse = async (req, res, next) => {
+export const deleteAccount = async (req, res, next) => {
     try {
-        const courseId = req.params.id
-        const result = await deleteCourseService(courseId)
+        const accountId = req.params.id
+        const result = await deleteAccountService(accountId)
         const { success, error } = result
         if (success) {
             return res.status(200).send({

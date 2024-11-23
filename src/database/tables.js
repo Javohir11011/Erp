@@ -15,6 +15,60 @@ export const createTable = async () => {
                     table.timestamps(true, true)
             })
         }
+
+        //courses table
+        if (!(await database.schema.hasTable('courses'))) {
+            await database.schema.createTable('courses', (table) => {
+                table.increments('id').primary(),
+                    table.string('name'),
+                    table.string('description'),
+                    table.timestamps(true, true)
+            })
+        }
+        //assignment table
+        if (!(await database.schema.hasTable('courses'))) {
+            await database.schema.createTable('courses', (table) => {
+                table.increments('id').primary(),
+                    table
+                        .integer('user_id')
+                        .references('id')
+                        .inTable('users')
+                        .onDelete('CASCADE'),
+                    table
+                        .integer('teache_id')
+                        .references('id')
+                        .inTable('teachers')
+                        .onDelete('CASCADE'),
+                    table
+                        .integer('student_id')
+                        .references('id')
+                        .inTable('students')
+                        .onDelete('CASCADE')
+            })
+        }
+        //payment table
+        if (!(await database.schema.hasTable('courses'))) {
+            await database.schema.createTable('courses', (table) => {
+                table.increments('id').primary(),
+                    table.string('account_id'),
+                    table.decimal('amount'),
+                    table.string('currency'),
+                    table.datetime('payment_date'),
+                    table.string('status'),
+                    table.string('stripe_payment_id')
+            })
+        }
+        //account table
+        if (!(await database.schema.hasTable('courses'))) {
+            await database.schema.createTable('courses', (table) => {
+                table.increments('id').primary(),
+                    table.string('email'),
+                    table.date('date_created'),
+                    table.string('plan'),
+                    table.string('referrer'),
+                    table.boolean('active')
+            })
+        }
     } catch (error) {
         logger.error(error.message)
     }

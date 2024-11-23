@@ -15,16 +15,17 @@ export const getByEmailService = async (email) => {
 export const registerService = async (user) => {
     try {
         const result = await getByEmailService(user.email)
-        if(result){
+        if (result) {
             throw new Error(`Email already created...`)
         }
-        const data =await connectDb('users')
-        .insert({
-            name:user.name,
-            email:user.email,
-            password:user.password,
-            role:user.role || 'student'
-        }).returning("*")
+        const data = await connectDb('users')
+            .insert({
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                role: user.role || 'student',
+            })
+            .returning('*')
         // console.log([data]);
         return data
     } catch (error) {
@@ -36,7 +37,7 @@ export const loginService = async (data) => {
     try {
         const result = await getByEmailService(data.email)
         // console.log(result);
-        if(!data){
+        if (!data) {
             throw new Error(error)
         }
         return result[0]
