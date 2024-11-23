@@ -12,5 +12,4 @@ const connectDb = knex({
     },
 })
 
-export default connectDb;
-                        
+export default connectDb

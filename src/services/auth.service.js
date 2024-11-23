@@ -19,6 +19,11 @@ export const registerService = async (user) => {
         if (result) {
             throw new Error(`Email already created...`)
         }
+        const data = await connectDb('users')
+            .insert({
+                name: user.name,
+                email: user.email,
+                password: user.password,
         const otp = await generateOtp()
 
         await sendEmail(
