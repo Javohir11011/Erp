@@ -6,9 +6,8 @@ import {
     register,
     update,
 } from '../controllers/index.js'
-import { validationMiddleware } from '../middleware/validation.middleware.js'
+import { validationMiddleware,roleGuard } from '../middleware/index.js'
 import { userSchema } from '../schema/user.schema.js'
-import { roleGuard } from '../middleware/checkrole.js'
 
 export const authRouter = Router()
 

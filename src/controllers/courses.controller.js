@@ -65,7 +65,7 @@ export const getCourseById = async (req, res, next) => {
     }
 }
 
-export const updateCourse = (ById = async (req, res, next) => {
+export const updateCourse = async (req, res, next) => {
     try {
         const courseId = req.params.id
         const newData = req.body
@@ -85,7 +85,7 @@ export const updateCourse = (ById = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-})
+}
 
 export const deleteCourse = async (req, res, next) => {
     try {

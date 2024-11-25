@@ -6,7 +6,7 @@ import {
     getAssignmentById,
     updateAssignment,
 } from '../controllers/index.js'
-import { validationMiddleware } from '../middleware/validation.middleware.js'
+import { validationMiddleware,roleGuard } from '../middleware/index.js'
 import { assignmentSchema } from '../schema/assignment.schema.js'
 
 export const assignmentRouter = Router()

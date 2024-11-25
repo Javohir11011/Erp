@@ -6,7 +6,7 @@ import {
     getPaymentById,
     updatePayment,
 } from '../controllers/index.js'
-import { validationMiddleware } from '../middleware/validation.middleware.js'
+import { validationMiddleware ,roleGuard} from '../middleware/index.js'
 import { paymentSchema } from '../schema/payment.schema.js'
 
 export const paymentRouter = Router()
