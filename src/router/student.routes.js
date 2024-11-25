@@ -5,9 +5,9 @@ import {
     sturdentCreateController,
     sturdentDeleteController,
 } from '../controllers/index.js'
-import { validationMiddleware } from '../middleware/validation.middleware.js'
 import { studentSchema } from '../schema/student.schema.js'
-import { roleGuard } from '../middleware/checkrole.js'
+import { validationMiddleware,roleGuard } from '../middleware/index.js'
+
 
 export const studentRouter = Router()
 

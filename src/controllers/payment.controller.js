@@ -65,7 +65,7 @@ export const getPaymentById = async (req, res, next) => {
     }
 }
 
-export const updatePayment = (ById = async (req, res, next) => {
+export const updatePayment = async (req, res, next) => {
     try {
         const paymentId = req.params.id
         const newData = req.body
@@ -81,11 +81,10 @@ export const updatePayment = (ById = async (req, res, next) => {
             message: 'Fail',
             error: error.message,
         })
-        res.send('ok')
     } catch (error) {
         next(error)
     }
-})
+}
 
 export const deletePayment = async (req, res, next) => {
     try {

@@ -65,7 +65,7 @@ export const getAccountById = async (req, res, next) => {
     }
 }
 
-export const updateAccount = (ById = async (req, res, next) => {
+export const updateAccount = async (req, res, next) => {
     try {
         const accountId = req.params.id
         const newData = req.body
@@ -81,11 +81,10 @@ export const updateAccount = (ById = async (req, res, next) => {
             message: 'Fail',
             error: error.message,
         })
-        res.send('ok')
     } catch (error) {
         next(error)
     }
-})
+}
 
 export const deleteAccount = async (req, res, next) => {
     try {
