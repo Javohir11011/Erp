@@ -102,7 +102,7 @@ export const updateAssignment =  async (req, res, next) => {
 
 export const deleteAssignment = async (req, res, next) => {
     try {
-        logger.error('Route: /api/v1/assigment/delete/:id METHOD: DELETE')
+        logger.info('Route: /api/v1/assigment/delete/:id METHOD: DELETE')
 
         const courseId = req.params.id
         const result = await deleteAssignmentService(courseId)
@@ -118,7 +118,7 @@ export const deleteAssignment = async (req, res, next) => {
         })
     } catch (error) {
         logger.error(
-            `Route: /api/v1/assigment/delete/:id METHOD: PUT,Error: ${error.message}`,
+            `Route: /api/v1/assigment/delete/:id METHOD: DELETE,Error: ${error.message}`,
         )
         next(error)
     }
