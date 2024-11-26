@@ -18,79 +18,105 @@ export const createTable = async () => {
         if (!(await database.schema.hasTable('teacher'))) {
             await database.schema.createTable('teacher', (table) => {
                 table.increments('id').primary(),
-                table
-                    .integer('user_id')
-                    .unsigned()
-                    .references('id')
-                    .inTable('users')
-                    .notNullable()
+                    table
+                        .integer('user_id')
+                        .unsigned()
+                        .references('id')
+                        .inTable('users')
+                        .notNullable()
             })
         }
         if (!(await database.schema.hasTable('student'))) {
             await database.schema.createTable('student', (table) => {
                 table.increments('id').primary(),
-                table
-                    .integer('user_id')
-                    .unsigned()
-                    .references('id')
-                    .inTable('users')
-                    .notNullable()
-                table.boolean('permisson').notNullable()
-            })
-        //courses table
-        if (!(await database.schema.hasTable('courses'))) {
-            await database.schema.createTable('courses', (table) => {
-                table.increments('id').primary(),
-                    table.string('name'),
-                    table.string('description'),
-                    table.timestamps(true, true)
-            })
-        }
-        //assignment table
-        if (!(await database.schema.hasTable('courses'))) {
-            await database.schema.createTable('courses', (table) => {
-                table.increments('id').primary(),
                     table
                         .integer('user_id')
+                        .unsigned()
                         .references('id')
                         .inTable('users')
-                        .onDelete('CASCADE'),
-                    table
-                        .integer('teache_id')
-                        .references('id')
-                        .inTable('teachers')
-                        .onDelete('CASCADE'),
-                    table
-                        .integer('student_id')
-                        .references('id')
-                        .inTable('students')
-                        .onDelete('CASCADE')
+                        .notNullable()
+                table.boolean('permisson').notNullable()
             })
+            //courses table
+            if (!(await database.schema.hasTable('courses'))) {
+                await database.schema.createTable('courses', (table) => {
+                    table.increments('id').primary(),
+                        table.string('name'),
+                        table.string('description'),
+                        table.timestamps(true, true)
+                })
+            }
+            //assignment table
+            if (!(await database.schema.hasTable('courses'))) {
+                await database.schema.createTable('courses', (table) => {
+                    table.increments('id').primary(),
+                        table
+                            .integer('user_id')
+                            .references('id')
+                            .inTable('users')
+                            .onDelete('CASCADE'),
+                        table
+                            .integer('teache_id')
+                            .references('id')
+                            .inTable('teachers')
+                            .onDelete('CASCADE'),
+                        table
+                            .integer('student_id')
+                            .references('id')
+                            .inTable('students')
+                            .onDelete('CASCADE')
+                })
+            }
+            //payment table
+            if (!(await database.schema.hasTable('courses'))) {
+                await database.schema.createTable('courses', (table) => {
+                    table.increments('id').primary(),
+                        table.string('account_id'),
+                        table.decimal('amount'),
+                        table.string('currency'),
+                        table.datetime('payment_date'),
+                        table.string('status'),
+                        table.string('stripe_payment_id')
+                })
+            }
+            //account table
+            if (!(await database.schema.hasTable('courses'))) {
+                await database.schema.createTable('courses', (table) => {
+                    table.increments('id').primary(),
+                        table.string('email'),
+                        table.date('date_created'),
+                        table.string('plan'),
+                        table.string('referrer'),
+                        table.boolean('active')
+                })
+            }
+            //homework
+            if (!(await database.schema.hasTable('homework'))) {
+                await database.schema.createTable('homework', (table) => {
+                    table.increments('id').primary(),
+                        table.string('description'),
+                        table.date('date_created'),
+                        table
+                            .enu('role', ['update', 'noUpdate'])
+                            .defaultTo('noUpdate'),
+                        table.timestamps(true, true)
+                })
+            }
+            //lesson
+            if (!(await database.schema.hasTable('lesson'))) {
+                await database.schema.createTable('lesson', (table) => {
+                    table.increments('id').primary(),
+                        table.string('lessonVideo'),
+                        table.string('comment'),
+                        table.integer('raiting'),
+                        table
+                            .integer('homework_id')
+                            .references('id')
+                            .inTable('homework')
+                    table.timestamps(true, true)
+                })
+            }
         }
-        //payment table
-        if (!(await database.schema.hasTable('courses'))) {
-            await database.schema.createTable('courses', (table) => {
-                table.increments('id').primary(),
-                    table.string('account_id'),
-                    table.decimal('amount'),
-                    table.string('currency'),
-                    table.datetime('payment_date'),
-                    table.string('status'),
-                    table.string('stripe_payment_id')
-            })
-        }
-        //account table
-        if (!(await database.schema.hasTable('courses'))) {
-            await database.schema.createTable('courses', (table) => {
-                table.increments('id').primary(),
-                    table.string('email'),
-                    table.date('date_created'),
-                    table.string('plan'),
-                    table.string('referrer'),
-                    table.boolean('active')
-            })
-        }
-    }
     } catch (error) {
         logger.error(error.message)
     }

@@ -5,3 +5,5 @@ export * from './course.service.js'
 export * from "./assignment.service.js"
 export * from "./payment.service.js"
 export * from "./account.service.js"
+export * from "./homework.service.js"
+export * from "./lesson.service.js"

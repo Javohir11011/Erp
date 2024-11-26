@@ -8,6 +8,8 @@ import {
 
 export const createAccount = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/account/create METHOD: POST')
+
         const accountData = req.body
         const result = await createAccountService(accountData)
         const { success, error, account } = result
@@ -22,12 +24,14 @@ export const createAccount = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error('Route: /api/v1/account/create METHOD: POST')
         next(error)
     }
 }
 
 export const getAllAccounts = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/account/:id METHOD: GET')
         const result = await getAllAccountsService()
         const { success, error, accounts } = result
         if (success) {
@@ -41,12 +45,15 @@ export const getAllAccounts = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error('Route: /api/v1/account/:id METHOD: GET')
         next(error)
     }
 }
 
 export const getAccountById = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/account/:id METHOD: GET')
+        
         const accountId = req.params.id
         const result = await getAccountByIdService(accountId)
         const { success, error, account } = result
@@ -61,12 +68,15 @@ export const getAccountById = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error('Route: /api/v1/account/:id METHOD: GET')
+
         next(error)
     }
 }
 
 export const updateAccount = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/account/update/:id METHOD: PUT')
         const accountId = req.params.id
         const newData = req.body
         const result = await updateAccountService(accountId, newData)
@@ -82,12 +92,17 @@ export const updateAccount = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error(
+            `Route: /api/v1/account/update/:id METHOD: PUT,Error: ${error.message}`,
+        )
         next(error)
     }
 }
 
 export const deleteAccount = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/account/delete/:id METHOD: DELETE')
+
         const accountId = req.params.id
         const result = await deleteAccountService(accountId)
         const { success, error } = result
@@ -101,6 +116,9 @@ export const deleteAccount = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error(
+            `Route: /api/v1/account/delete/:id METHOD: DELETE,Error: ${error.message}`,
+        )
         next(error)
     }
 }
