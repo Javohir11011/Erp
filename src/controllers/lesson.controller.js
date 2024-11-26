@@ -5,6 +5,7 @@ import {
     getByIdLessonService,
     updateLessonService,
 } from '../services/index.js'
+import logger from '../utils/logger.js'
 
 export const lessonAllController = async (req, res, next) => {
     try {
@@ -31,7 +32,6 @@ export const lessonByIdController = async (req, res, next) => {
         return res.status(201).send(currentLesson)
     } catch (error) {
         logger.error('Route: /api/v1/lesson/:id METHOD: GET')
-
         next(error)
     }
 }

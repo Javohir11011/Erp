@@ -5,6 +5,7 @@ import {
     getAccountByIdService,
     updateAccountService,
 } from '../services/index.js'
+import logger from '../utils/logger.js'
 
 export const createAccount = async (req, res, next) => {
     try {

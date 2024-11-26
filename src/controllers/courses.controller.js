@@ -5,6 +5,7 @@ import {
     getCourseByIdService,
     updateCourseService,
 } from '../services/index.js'
+import logger from '../utils/logger.js'
 
 export const createCourse = async (req, res, next) => {
     try {

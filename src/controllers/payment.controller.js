@@ -5,6 +5,7 @@ import {
     getPaymentByIdService,
     updatePaymentService,
 } from '../services/index.js'
+import logger from '../utils/logger.js'
 
 export const createPayment = async (req, res, next) => {
     try {

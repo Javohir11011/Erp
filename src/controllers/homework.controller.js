@@ -5,6 +5,7 @@ import {
     getByIdHomeworkService,
     updateHomeworkService,
 } from '../services/index.js'
+import logger from '../utils/logger.js'
 
 export const homeworkAllController = async (req, res, next) => {
     try {

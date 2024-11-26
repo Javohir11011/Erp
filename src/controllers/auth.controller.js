@@ -5,6 +5,7 @@ import {
     registerService,
     updateService,
 } from '../services/index.js'
+import logger from '../utils/logger.js'
 
 export const register = async (req, res, next) => {
     try {
