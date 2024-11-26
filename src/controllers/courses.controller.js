@@ -32,7 +32,7 @@ export const createCourse = async (req, res, next) => {
 
 export const getAllCourses = async (req, res, next) => {
     try {
-        logger.info('Route: /api/v1/course/:id METHOD: GET')
+        logger.info('Route: /api/v1/course/all METHOD: GET')
 
         const result = await getAllCoursesService()
         const { success, error, courses } = result
@@ -47,7 +47,7 @@ export const getAllCourses = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
-        logger.error('Route: /api/v1/course/:id METHOD: GET')
+        logger.error('Route: /api/v1/course/all METHOD: GET')
 
         next(error)
     }
@@ -105,7 +105,6 @@ export const updateCourse = async (req, res, next) => {
 export const deleteCourse = async (req, res, next) => {
     try {
         logger.info('Route: /api/v1/course/delete/:id METHOD: DELETE')
-
         const courseId = req.params.id
         const result = await deleteCourseService(courseId)
         const { success, error } = result
