@@ -5,9 +5,11 @@ import {
     getAssignmentByIdService,
     updateAssignmentService,
 } from '../services/index.js'
+import logger from '../utils/logger.js'
 
 export const createAssignment = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/assigment/create METHOD: POST')
         const courseData = req.body
         const result = await createAssignmentService(courseData)
         const { success, error, course } = result
@@ -22,12 +24,15 @@ export const createAssignment = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error('Route: /api/v1/assigment/create METHOD: POST')
         next(error)
     }
 }
 
 export const getAllAssignments = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/assigment/:id METHOD: GET')
+
         const result = await getAllAssignmentsService()
         const { success, error, courses } = result
         if (success) {
@@ -41,12 +46,15 @@ export const getAllAssignments = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error('Route: /api/v1/assigment/:id METHOD: GET')
+
         next(error)
     }
 }
 
 export const getAssignmentById = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/assigment/:id METHOD: GET')
         const courseId = req.params.id
         const result = await getAssignmentByIdService(courseId)
         const { success, error, course } = result
@@ -61,12 +69,15 @@ export const getAssignmentById = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error('Route: /api/v1/assigment/:id METHOD: GET')
         next(error)
     }
 }
 
 export const updateAssignment =  async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/assigment/update/:id METHOD: PUT')
+        
         const courseId = req.params.id
         const newData = req.body
         const result = await updateAssignmentService(courseId, newData)
@@ -81,14 +92,19 @@ export const updateAssignment =  async (req, res, next) => {
             message: 'Fail',
             error: error.message,
         })
-        res.send('ok')
+
     } catch (error) {
+        logger.error(
+            `Route: /api/v1/assigment/update/:id METHOD: PUT,Error: ${error.message}`,
+        )
         next(error)
     }
 }
 
 export const deleteAssignment = async (req, res, next) => {
     try {
+        logger.info('Route: /api/v1/assigment/delete/:id METHOD: DELETE')
+
         const courseId = req.params.id
         const result = await deleteAssignmentService(courseId)
         const { success, error } = result
@@ -102,6 +118,9 @@ export const deleteAssignment = async (req, res, next) => {
             error: error.message,
         })
     } catch (error) {
+        logger.error(
+            `Route: /api/v1/assigment/delete/:id METHOD: DELETE,Error: ${error.message}`,
+        )
         next(error)
     }
 }

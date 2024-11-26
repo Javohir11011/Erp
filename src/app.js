@@ -2,7 +2,7 @@ import express from 'express'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
-import passport from "passport"
+import passport from 'passport'
 import {
     // authRouter,
     studentRouter,
@@ -10,11 +10,13 @@ import {
     assignmentRouter,
     courseRouter,
     googleRouter,
+    homewokrRouter,
+    lessonRouter,
 } from './router/index.js'
 import { createTable } from './database/tables.js'
+import {} from './router/lesson.routes.js'
 
 const app = express()
-
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -34,6 +36,8 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use('/api/v1/lesson', lessonRouter)
+app.use('/api/v1/homework', homewokrRouter)
 
 app.use('/api/v1', googleRouter)
 // app.use('/api/v1/auth', authRouter)
