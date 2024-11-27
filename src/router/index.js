@@ -9,6 +9,7 @@ export * from "./stategy-routes.js"
 export * from "./homework.routes.js"
 export * from "./stategy-routes.js"
 export * from "./lesson.routes.js"
+export * from "./exam.routes.js"
 
 
 

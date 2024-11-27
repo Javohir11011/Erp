@@ -12,9 +12,9 @@ import {
     googleRouter,
     homewokrRouter,
     lessonRouter,
+    examRouter,
 } from './router/index.js'
 import { createTable } from './database/tables.js'
-import {} from './router/lesson.routes.js'
 
 const app = express()
 
@@ -35,7 +35,8 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
-
+4
+app.use('/api/v1/exam', examRouter)
 app.use('/api/v1/lesson', lessonRouter)
 app.use('/api/v1/homework', homewokrRouter)
 
